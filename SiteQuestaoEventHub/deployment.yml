@@ -1,0 +1,30 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: sitequestaoeventhub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sitequestaoeventhub
+  template:
+    metadata:
+      labels:
+        app: sitequestaoeventhub
+    spec:
+      containers:
+        - name: sitequestaoeventhub
+          image: acrdemoptc.azurecr.io/sitequestaoeventhub:latest
+          ports:
+          - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: sitequestaoeventhub
+spec:
+    type: ClusterIP
+    ports:
+    - port: 80 
+    selector:
+        app: sitequestaoeventhub
